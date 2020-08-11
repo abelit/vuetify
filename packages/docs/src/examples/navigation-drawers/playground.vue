@@ -1,24 +1,24 @@
 <template>
-  <v-layout
-    column
-    align-stretch
-  >
-    <v-layout
-      wrap
-      justify-space-around
-    >
-      <v-flex xs12>
+  <v-container>
+    <v-row justify="space-around">
+      <v-col cols="12">
         <v-select
           v-model="color"
           :items="colors"
           label="Color"
         ></v-select>
-      </v-flex>
+      </v-col>
 
       <v-switch
         v-model="drawer"
         class="ma-2"
         label="v-model"
+      ></v-switch>
+
+      <v-switch
+        v-model="permanent"
+        class="ma-2"
+        label="Permanent"
       ></v-switch>
 
       <v-switch
@@ -44,10 +44,11 @@
         class="ma-2"
         label="Right"
       ></v-switch>
-    </v-layout>
+    </v-row>
 
     <v-card
       height="400"
+      class="overflow-hidden"
     >
       <v-navigation-drawer
         v-model="drawer"
@@ -55,6 +56,7 @@
         :expand-on-hover="expandOnHover"
         :mini-variant="miniVariant"
         :right="right"
+        :permanent="permanent"
         :src="bg"
         absolute
         dark
@@ -64,7 +66,7 @@
           nav
           class="py-0"
         >
-          <v-list-item two-line>
+          <v-list-item two-line :class="miniVariant && 'px-0'">
             <v-list-item-avatar>
               <img src="https://randomuser.me/api/portraits/men/81.jpg">
             </v-list-item-avatar>
@@ -93,7 +95,7 @@
         </v-list>
       </v-navigation-drawer>
     </v-card>
-  </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -114,7 +116,8 @@
           'red',
           'teal',
         ],
-        right: true,
+        right: false,
+        permanent: true,
         miniVariant: false,
         expandOnHover: false,
         background: false,

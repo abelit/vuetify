@@ -1,6 +1,6 @@
 <template>
-  <v-layout column align-center>
-    <v-layout wrap justify-space-around>
+  <v-row align="center">
+    <v-row justify="space-around">
       <v-switch v-model="disabled" class="ma-2" label="Disabled"></v-switch>
       <v-switch v-model="dense" class="ma-2" label="Dense"></v-switch>
       <v-switch v-model="twoLine" class="ma-2" label="Two-line"></v-switch>
@@ -13,7 +13,7 @@
       <v-switch v-model="nav" class="ma-2" label="Nav"></v-switch>
       <v-switch v-model="avatar" class="ma-2" label="Avatar"></v-switch>
       <v-switch v-model="rounded" class="ma-2" label="Rounded"></v-switch>
-    </v-layout>
+    </v-row>
     <v-card
       class="mx-auto"
       max-width="400"
@@ -27,7 +27,6 @@
         :shaped="shaped"
         :flat="flat"
         :subheader="subheader"
-        :inactive="inactive"
         :sub-group="subGroup"
         :nav="nav"
         :avatar="avatar"
@@ -38,6 +37,7 @@
           <v-list-item
             v-for="(item, i) in items"
             :key="i"
+            :inactive="inactive"
           >
             <v-list-item-avatar v-if="avatar">
               <v-img :src="item.avatar"></v-img>
@@ -50,7 +50,7 @@
         </v-list-item-group>
       </v-list>
     </v-card>
-  </v-layout>
+  </v-row>
 </template>
 
 <script>

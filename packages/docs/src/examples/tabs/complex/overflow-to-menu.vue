@@ -12,17 +12,16 @@
       <v-spacer></v-spacer>
 
       <v-btn icon>
-        <v-icon>search</v-icon>
+        <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
       <v-btn icon>
-        <v-icon>more_vert</v-icon>
+        <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
 
       <template v-slot:extension>
         <v-tabs
           v-model="currentItem"
-          background-color="transparent"
           fixed-tabs
           slider-color="white"
         >
@@ -39,14 +38,15 @@
             bottom
             left
           >
-            <template v-slot:activator="{ on }">
+            <template v-slot:activator="{ on, attrs }">
               <v-btn
                 text
                 class="align-self-center mr-4"
+                v-bind="attrs"
                 v-on="on"
               >
                 more
-                <v-icon right>arrow_drop_down</v-icon>
+                <v-icon right>mdi-menu-down</v-icon>
               </v-btn>
             </template>
 

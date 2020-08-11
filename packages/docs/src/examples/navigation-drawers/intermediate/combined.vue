@@ -8,14 +8,14 @@
       permanent
       width="100%"
     >
-      <v-layout fill-height>
+      <v-row class="fill-height" no-gutters>
         <v-navigation-drawer
           dark
           mini-variant
           mini-variant-width="56"
           permanent
         >
-          <v-list-item>
+          <v-list-item class="px-2">
             <v-list-item-avatar>
               <v-img src="https://randomuser.me/api/portraits/women/75.jpg"></v-img>
             </v-list-item-avatar>
@@ -53,7 +53,7 @@
             <v-list-item-title v-text="link"></v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-layout>
+      </v-row>
     </v-navigation-drawer>
   </v-card>
 </template>

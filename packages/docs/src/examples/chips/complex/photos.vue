@@ -1,7 +1,6 @@
 <template>
   <v-card
     class="mx-auto"
-    color="white"
     max-width="500"
   >
     <v-toolbar
@@ -19,19 +18,15 @@
       </v-btn>
     </v-toolbar>
 
-    <v-container
-      grid-list-md
-      py-0
-    >
-      <v-layout
-        align-center
-        justify-start
-        wrap
+    <v-container class="py-0">
+      <v-row
+        align="center"
+        justify="start"
       >
-        <v-flex
+        <v-col
           v-for="(selection, i) in selections"
           :key="selection.text"
-          shrink
+          class="shrink"
         >
           <v-chip
             :disabled="loading"
@@ -44,9 +39,9 @@
             ></v-icon>
             {{ selection.text }}
           </v-chip>
-        </v-flex>
+        </v-col>
 
-        <v-flex v-if="!allSelected" xs12>
+        <v-col v-if="!allSelected" cols="12">
           <v-text-field
             ref="search"
             v-model="search"
@@ -55,19 +50,19 @@
             label="Search"
             single-line
           ></v-text-field>
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-container>
 
     <v-divider v-if="!allSelected"></v-divider>
 
     <v-list>
-      <template v-for="(item, i) in categories">
+      <template v-for="item in categories">
         <v-list-item
-          v-if="!selected.includes(i)"
-          :key="i"
+          v-if="!selected.includes(item)"
+          :key="item.text"
           :disabled="loading"
-          @click="selected.push(i)"
+          @click="selected.push(item)"
         >
           <v-list-item-avatar>
             <v-icon
@@ -144,7 +139,7 @@
         const selections = []
 
         for (const selection of this.selected) {
-          selections.push(this.items[selection])
+          selections.push(selection)
         }
 
         return selections

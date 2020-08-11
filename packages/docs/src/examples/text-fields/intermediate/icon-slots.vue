@@ -1,8 +1,8 @@
 <template>
   <v-form>
-    <v-container grid-list-xl>
-      <v-layout wrap>
-        <v-flex xs12>
+    <v-container>
+      <v-row>
+        <v-col cols="12">
           <v-text-field
             v-model="message"
             outlined
@@ -36,9 +36,12 @@
                 style="top: -12px"
                 offset-y
               >
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on">
-                    <v-icon left>menu</v-icon>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon left>mdi-menu</v-icon>
                     Menu
                   </v-btn>
                 </template>
@@ -50,9 +53,9 @@
               </v-menu>
             </template>
           </v-text-field>
-        </v-flex>
+        </v-col>
 
-      </v-layout>
+      </v-row>
     </v-container>
   </v-form>
 </template>

@@ -1,90 +1,106 @@
-<template lang="pug">
-  v-container(
+<template>
+  <v-container
+    class="spacing-playground pa-6"
     fluid
-    grid-list-lg
-    spacing-playground
-    py-0
-    px-2
-  )
-    v-layout(
-      row
-      wrap
-    )
-      v-flex(
-        xs12
-        sm6
+  >
+    <v-row>
+      <v-col
         class="d-flex align-center"
-      )
-        v-select(
-          :items="directions"
-          :label="$t('Styles.Spacing.padding')"
-          class="pr-2"
+        cols="12"
+        sm="6"
+      >
+        <v-select
           v-model="paddingDirection"
-        )
-          template(v-slot:prepend)
-            strong().primary--text p
-          template(v-slot:append-outer)
-            div() -
-
-        v-select(
-          :items="paddingSizes.slice(1)"
-          :label="$t('Styles.Spacing.size')"
-          v-model="paddingSize"
-        )
-      v-flex(
-        xs12
-        sm6
-        class="d-flex"
-      )
-        v-select(
           :items="directions"
-          :label="$t('Styles.Spacing.margin')"
           class="pr-2"
-          v-model="marginDirection"
-        )
-          template(v-slot:prepend)
-            strong().primary--text m
-          template(v-slot:append-outer)
-            div() -
+          label="Padding"
+        >
+          <template v-slot:prepend>
+            <strong class="primary--text py-1">p</strong>
+          </template>
 
-        v-select(
-          :items="marginSizes"
-          :label="$t('Styles.Spacing.size')"
+          <template v-slot:append-outer>
+            <div class="py-1"> - </div>
+          </template>
+        </v-select>
+
+        <v-select
+          v-model="paddingSize"
+          :items="paddingSizes.slice(1)"
+          label="Size"
+        ></v-select>
+      </v-col>
+
+      <v-col
+        class="d-flex"
+        cols="12"
+        sm="6"
+      >
+        <v-select
+          v-model="marginDirection"
+          :items="directions"
+          class="pr-2"
+          label="Margin"
+        >
+          <template v-slot:prepend>
+            <strong class="primary--text py-1">m</strong>
+          </template>
+
+          <template v-slot:append-outer>
+            <div class="py-1"> - </div>
+          </template>
+        </v-select>
+
+        <v-select
           v-model="marginSize"
-        )
-      v-flex(
-        xs12
+          :items="marginSizes"
+          label="Size"
+        ></v-select>
+      </v-col>
+
+      <v-col
         class="orange lighten-3 pa-0"
-      )
-        v-card(
+        cols="12"
+      >
+        <v-sheet
           :class="[computedMargin]"
-          class="elevation-4"
-        )
-          div(
+          elevation="4"
+          rounded
+        >
+          <div
             :class="[computedPadding]"
             class="light-green lighten-3"
-          )
-            div(
-              class="white text-center"
-              v-text="$t('Styles.Spacing.playgroundText2')"
-            )
+          >
+            <div
+              class="white text-center py-6"
+              v-text="playgroundText"
+            ></div>
+          </div>
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
   export default {
-    data: () => ({
-      directions: ['t', 'b', 'l', 'r', 's', 'e', 'x', 'y', 'a'],
-      paddingSizes: ['auto', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-      marginSizes: [
-        'auto',
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
-        'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10', 'n11', 'n12',
-      ],
-      paddingDirection: 'a',
-      paddingSize: '2',
-      marginDirection: 'a',
-      marginSize: '2',
-    }),
+    data () {
+      const spacers = Array.from({ length: 17 }, (val, i) => `${i}`)
+      const nspacers = Array.from({ length: 16 }, (val, i) => `n${i + 1}`)
+      const defaults = ['auto', ...spacers]
+
+      return {
+        directions: ['t', 'b', 'l', 'r', 's', 'e', 'x', 'y', 'a'],
+        marginDirection: 'a',
+        marginSize: '2',
+        marginSizes: [...defaults, ...nspacers],
+        paddingDirection: 'a',
+        paddingSize: '6',
+        paddingSizes: defaults,
+        playgroundText: 'Use the controls above to try out the different spacing helpers.',
+      }
+    },
+
     computed: {
       computedPadding () {
         return `p${this.paddingDirection}-${this.paddingSize}`
@@ -95,10 +111,3 @@
     },
   }
 </script>
-
-<style>
-  .spacing-playground .v-select .v-input__prepend-outer, .spacing-playground .v-select .v-input__append-outer{
-    margin-top: 0.55rem;
-    margin-right: 0.2rem;
-  }
-</style>

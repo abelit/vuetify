@@ -6,10 +6,11 @@
       :nudge-width="200"
       offset-x
     >
-      <template v-slot:activator="{ on }">
+      <template v-slot:activator="{ on, attrs }">
         <v-btn
           color="indigo"
           dark
+          v-bind="attrs"
           v-on="on"
         >
           Menu as Popover
@@ -34,7 +35,7 @@
                 icon
                 @click="fav = !fav"
               >
-                <v-icon>favorite</v-icon>
+                <v-icon>mdi-heart</v-icon>
               </v-btn>
             </v-list-item-action>
           </v-list-item>

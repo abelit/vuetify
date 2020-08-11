@@ -10,14 +10,14 @@
     class="elevation-1"
   >
     <template v-slot:top>
-      <v-toolbar flat color="white">
+      <v-toolbar flat>
         <v-toolbar-title>Expandable Table</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-switch v-model="singleExpand" label="Single expand" class="mt-2"></v-switch>
       </v-toolbar>
     </template>
-    <template v-slot:expanded-item="{ headers }">
-      <td :colspan="headers.length">Peek-a-boo!</td>
+    <template v-slot:expanded-item="{ headers, item }">
+      <td :colspan="headers.length">More info about {{ item.name }}</td>
     </template>
   </v-data-table>
 </template>
@@ -31,7 +31,7 @@
         headers: [
           {
             text: 'Dessert (100g serving)',
-            align: 'left',
+            align: 'start',
             sortable: false,
             value: 'name',
           },
@@ -40,6 +40,7 @@
           { text: 'Carbs (g)', value: 'carbs' },
           { text: 'Protein (g)', value: 'protein' },
           { text: 'Iron (%)', value: 'iron' },
+          { text: '', value: 'data-table-expand' },
         ],
         desserts: [
           {

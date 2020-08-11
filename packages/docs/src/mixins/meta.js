@@ -7,7 +7,7 @@ export default {
 
   computed: {
     title () {
-      return this.meta.title || 'Material Component Framework'
+      return this.meta.title || 'Vue Material Component Framework'
     },
     description () {
       return this.meta.description
@@ -24,7 +24,10 @@ export default {
     meta: {
       deep: true,
       handler () {
-        document.title = `${this.title} — Vuetify.js`
+        if (typeof document !== 'undefined') {
+          document.title = `${this.title} — Vuetify.js`
+        }
+
         this._description.setAttribute('content', this.description)
         this._keywords.setAttribute('content', this.keywords)
       },
@@ -56,17 +59,20 @@ export default {
       this.setMeta()
     },
     setMeta () {
-      const path = this.$route.path.split('/').slice(2).join('/')
-      const lang = this.$route.path.split('/')[1]
+      const [, lang, namespace, page] = this.$route.path.split('/')
+
+      const key = namespace ? `${namespace}/${page}` : ''
       const meta = this.$i18n.getLocaleMessage(lang).Meta || {}
 
-      this.meta = meta[path] || this.getFallbackMeta(path) || {}
+      this.meta = meta[key] || this.getFallbackMeta(key) || {}
     },
     getFallbackMeta (path) {
-      const fallbackmeta = this.$i18n.getLocaleMessage(this.$i18n.fallbackLocale).Meta
+      const fallbackmeta = this.$i18n.getLocaleMessage(this.$i18n.fallbackLocale).Meta || {}
+
       if (process.env.NODE_ENV === 'development') {
         console.warn('Falling back to english meta for ' + (path || '/'))
       }
+
       return fallbackmeta[path]
     },
   },

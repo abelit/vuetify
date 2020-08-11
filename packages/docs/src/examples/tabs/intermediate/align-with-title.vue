@@ -12,18 +12,17 @@
       <v-spacer></v-spacer>
 
       <v-btn icon>
-        <v-icon>search</v-icon>
+        <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
       <v-btn icon>
-        <v-icon>more_vert</v-icon>
+        <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
 
       <template v-slot:extension>
         <v-tabs
           v-model="tab"
           align-with-title
-          background-color="transparent"
         >
           <v-tabs-slider color="yellow"></v-tabs-slider>
 

@@ -15,8 +15,14 @@
         ></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
+            >New Item</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -24,24 +30,24 @@
             </v-card-title>
 
             <v-card-text>
-              <v-container grid-list-md>
-                <v-layout wrap>
-                  <v-flex xs12 sm6 md4>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                  </v-flex>
-                </v-layout>
+                  </v-col>
+                </v-row>
               </v-container>
             </v-card-text>
 
@@ -54,19 +60,19 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.action="{ item }">
+    <template v-slot:item.actions="{ item }">
       <v-icon
         small
         class="mr-2"
         @click="editItem(item)"
       >
-        edit
+        mdi-pencil
       </v-icon>
       <v-icon
         small
         @click="deleteItem(item)"
       >
-        delete
+        mdi-delete
       </v-icon>
     </template>
     <template v-slot:no-data>
@@ -82,7 +88,7 @@
       headers: [
         {
           text: 'Dessert (100g serving)',
-          align: 'left',
+          align: 'start',
           sortable: false,
           value: 'name',
         },
@@ -90,7 +96,7 @@
         { text: 'Fat (g)', value: 'fat' },
         { text: 'Carbs (g)', value: 'carbs' },
         { text: 'Protein (g)', value: 'protein' },
-        { text: 'Actions', value: 'action', sortable: false },
+        { text: 'Actions', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
@@ -215,10 +221,10 @@
 
       close () {
         this.dialog = false
-        setTimeout(() => {
+        this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
-        }, 300)
+        })
       },
 
       save () {

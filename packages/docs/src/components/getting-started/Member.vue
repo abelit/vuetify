@@ -30,7 +30,7 @@
                 xs12
                 pb-0
               >
-                <doc-markdown>{{ value.title }}</doc-markdown>
+                <base-markdown>{{ value.title }}</base-markdown>
               </v-flex>
               <v-flex>
                 <a
@@ -64,7 +64,7 @@
                   target="_blank"
                   rel="noopener"
                 >
-                  <v-icon>mdi-github-face</v-icon>
+                  <v-icon>mdi-github</v-icon>
                 </a>
                 <a
                   v-if="value.linkedin"

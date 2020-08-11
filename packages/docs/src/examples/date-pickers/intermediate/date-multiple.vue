@@ -1,12 +1,12 @@
 <template>
-  <v-layout wrap>
-    <v-flex xs12 sm6>
+  <v-row>
+    <v-col cols="12" sm="6">
       <v-date-picker
         v-model="dates"
         multiple
       ></v-date-picker>
-    </v-flex>
-    <v-flex xs12 sm6>
+    </v-col>
+    <v-col cols="12" sm="6">
       <v-menu
         ref="menu"
         v-model="menu"
@@ -14,10 +14,9 @@
         :return-value.sync="dates"
         transition="scale-transition"
         offset-y
-        full-width
         min-width="290px"
       >
-        <template v-slot:activator="{ on }">
+        <template v-slot:activator="{ on, attrs }">
           <v-combobox
             v-model="dates"
             multiple
@@ -26,6 +25,7 @@
             label="Multiple picker in menu"
             prepend-icon="event"
             readonly
+            v-bind="attrs"
             v-on="on"
           ></v-combobox>
         </template>
@@ -35,8 +35,8 @@
           <v-btn text color="primary" @click="$refs.menu.save(dates)">OK</v-btn>
         </v-date-picker>
       </v-menu>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

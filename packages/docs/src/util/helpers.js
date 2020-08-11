@@ -1,9 +1,10 @@
+// Utilities
+import { preferredLanguage } from '@/router/util'
+
 // Must be called in Vue context
 export function goTo (id) {
   this.$vuetify.goTo(id).then(() => {
-    if (!id) {
-      return (document.location.hash = '')
-    }
+    if (!id) return (document.location.hash = '')
 
     if (history.replaceState) {
       history.replaceState(null, null, id)
@@ -21,11 +22,12 @@ export function getComponent (type) {
     case 'checklist': return 'doc-checklist'
     case 'example': return 'doc-example'
     case 'examples': return 'doc-examples'
-    case 'heading': return 'doc-heading'
+    case 'functional': return 'doc-functional'
+    case 'heading': return 'base-heading'
     case 'img': return 'doc-img'
     case 'text': return 'doc-text'
     case 'markup': return 'doc-markup'
-    case 'markdown': return 'doc-markdown'
+    case 'markdown': return 'base-markdown'
     case 'parameters': return 'doc-parameters'
     case 'playground': return 'doc-playground'
     case 'section': return 'doc-section'
@@ -33,37 +35,44 @@ export function getComponent (type) {
     case 'tree': return 'doc-tree'
     case 'up-next': return 'doc-up-next'
     case 'usage': return 'doc-usage'
+    case 'usage-new': return 'doc-usage-new'
     case 'locales': return 'doc-locales'
+    case 'variable-api': return 'doc-variable-api'
     default: return type
   }
 }
 
 export function parseLink (match, text, link) {
-  let attrs = ''
-  let linkClass = 'markdown--link'
-  let icon = ''
+  const isInternal = !(
+    link.indexOf('http') > -1 ||
+    link.indexOf('mailto') > -1
+  )
+  const isSamePage = link.startsWith('#')
 
-  // External link
-  if (link.indexOf('http') > -1) {
-    attrs = `target="_blank" rel="noopener"`
-    icon = 'open-in-new'
-    linkClass += ' markdown--external'
-  // Same page internal link
-  } else if (link.charAt(0) === '#') {
-    linkClass += ' markdown--same-internal'
-    icon = 'pound'
-  // Different page internal link
-  } else {
-    linkClass += ' markdown--internal'
-    icon = 'page-next'
+  const attrs = isInternal ? '' : `target="_blank" rel="noopener"`
+  const classes = 'v-markdown--link'
+  const icon = isInternal ? 'page-next' : 'open-in-new'
+  const [url = '', hash = ''] = link.split('#')
+
+  if (isInternal && !isSamePage) {
+    // Reset link
+    link = `/${preferredLanguage()}`
+
+    // Remove leading/trailing slashes
+    if (url) link += `/${url.replace(/^\/|\/$/, '')}/`
+    // Append hash
+    if (hash) link += `#${hash}`
+  } else if (isInternal && hash) {
+    link = `#${hash}`
   }
 
-  return `<a href="${link}" ${attrs} class="${linkClass}">${text}<i class="v-icon mdi mdi-${icon}"></i></a>`
+  return `<a href="${link}" ${attrs} class="${classes}">${text}<i class="v-icon mdi mdi-${icon}"></i></a>`
 }
 
 export async function waitForReadystate () {
   if (
     typeof document !== 'undefined' &&
+    typeof window !== 'undefined' &&
     document.readyState !== 'complete'
   ) {
     await new Promise(resolve => {
@@ -71,6 +80,7 @@ export async function waitForReadystate () {
         window.requestAnimationFrame(resolve)
         window.removeEventListener('load', cb)
       }
+
       window.addEventListener('load', cb)
     })
   }
@@ -84,6 +94,19 @@ export function genChip (item) {
 }
 
 export function getBranch () {
-  const branch = window ? window.location.hostname.split('.')[0] : 'master'
+  const branch = window
+    ? window.location.hostname.split('.')[0]
+    : 'master'
+
   return ['master', 'dev', 'next'].includes(branch) ? branch : 'master'
+}
+
+export function copyElementContent (el) {
+  el.setAttribute('contenteditable', 'true')
+  el.focus()
+
+  document.execCommand('selectAll', false, null)
+  document.execCommand('copy')
+
+  el.removeAttribute('contenteditable')
 }

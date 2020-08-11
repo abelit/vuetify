@@ -2,11 +2,12 @@
   <v-sheet
     height="400"
     class="overflow-hidden"
+    style="position: relative;"
   >
-    <v-container fill-height>
-      <v-layout
-        align-center
-        justify-center
+    <v-container class="fill-height">
+      <v-row
+        align="center"
+        justify="center"
       >
         <v-btn
           color="pink"
@@ -15,7 +16,7 @@
         >
           Toggle
         </v-btn>
-      </v-layout>
+      </v-row>
     </v-container>
 
     <v-navigation-drawer

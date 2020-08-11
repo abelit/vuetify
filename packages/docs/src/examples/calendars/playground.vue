@@ -1,64 +1,67 @@
 <template>
-  <v-layout wrap>
-    <v-flex
-      sm12
-      lg3
+  <v-row>
+    <v-col
+      sm="12"
+      lg="3"
       class="mb-4 controls"
     >
       <v-btn
         fab
-        outlined
         small
         absolute
         left
         color="primary"
         @click="$refs.calendar.prev()"
       >
-        <v-icon dark>
-          keyboard_arrow_left
-        </v-icon>
+        <v-icon dark>mdi-chevron-left</v-icon>
       </v-btn>
       <v-btn
         fab
-        outlined
         small
         absolute
         right
         color="primary"
         @click="$refs.calendar.next()"
       >
-        <v-icon
-          dark
-        >
-          keyboard_arrow_right
-        </v-icon>
+        <v-icon dark>mdi-chevron-right</v-icon>
       </v-btn>
       <br><br><br>
       <v-select
         v-model="type"
         :items="typeOptions"
         label="Type"
+        hide-details
+        outlined
+        dense
       ></v-select>
       <v-checkbox
         v-model="dark"
         label="Dark"
+        hide-details
       ></v-checkbox>
       <v-checkbox
         v-model="shortIntervals"
         label="Short intervals"
+        hide-details
       ></v-checkbox>
       <v-checkbox
         v-model="shortMonths"
         label="Short months"
+        hide-details
       ></v-checkbox>
       <v-checkbox
         v-model="shortWeekdays"
         label="Short weekdays"
+        hide-details
       ></v-checkbox>
       <v-select
         v-model="color"
         :items="colorOptions"
+        class="mt-3"
         label="Color"
+        hide-details
+        outlined
+        dense
       ></v-select>
       <v-menu
         ref="startMenu"
@@ -69,14 +72,18 @@
         transition="scale-transition"
         min-width="290px"
         offset-y
-        full-width
       >
-        <template v-slot:activator="{ on }">
+        <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="start"
+            class="mt-3"
             label="Start Date"
             prepend-icon="event"
+            dense
             readonly
+            outlined
+            hide-details
+            v-bind="attrs"
             v-on="on"
           ></v-text-field>
         </template>
@@ -112,14 +119,18 @@
         transition="scale-transition"
         min-width="290px"
         offset-y
-        full-width
       >
-        <template v-slot:activator="{ on }">
+        <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="end"
+            class="mt-3"
             label="End Date"
             prepend-icon="event"
+            dense
             readonly
+            outlined
+            hide-details
+            v-bind="attrs"
             v-on="on"
           ></v-text-field>
         </template>
@@ -154,14 +165,18 @@
         transition="scale-transition"
         min-width="290px"
         offset-y
-        full-width
       >
-        <template v-slot:activator="{ on }">
+        <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="now"
+            class="mt-3"
             label="Today"
             prepend-icon="event"
+            dense
             readonly
+            outlined
+            hide-details
+            v-bind="attrs"
             v-on="on"
           ></v-text-field>
         </template>
@@ -188,13 +203,30 @@
         </v-date-picker>
       </v-menu>
       <v-select
+        v-model="mode"
+        :items="modeOptions"
+        dense
+        outlined
+        hide-details
+        class="mt-3"
+        label="Event Overlap Mode"
+      ></v-select>
+      <v-select
         v-model="weekdays"
         :items="weekdaysOptions"
+        dense
+        outlined
+        hide-details
+        class="mt-3"
         label="Weekdays"
       ></v-select>
       <v-text-field
         v-if="type === 'custom-weekly'"
         v-model="minWeeks"
+        dense
+        outlined
+        hide-details
+        class="mt-3"
         label="Minimum Weeks"
         type="number"
       ></v-text-field>
@@ -202,27 +234,39 @@
         v-if="hasIntervals"
         v-model="intervals"
         :items="intervalsOptions"
+        dense
+        outlined
+        hide-details
+        class="mt-3"
         label="Intervals"
       ></v-select>
       <v-select
         v-if="type === 'custom-daily'"
         v-model="maxDays"
         :items="maxDaysOptions"
+        dense
+        outlined
+        hide-details
+        class="mt-3"
         label="# of Days"
       ></v-select>
       <v-select
         v-if="hasIntervals"
         v-model="styleInterval"
         :items="styleIntervalOptions"
+        dense
+        outlined
+        hide-details
+        class="mt-3"
         label="Styling"
       ></v-select>
-    </v-flex>
-    <v-flex
-      sm12
-      lg9
+    </v-col>
+    <v-col
+      sm="12"
+      lg="9"
       class="pl-4"
     >
-      <v-sheet height="500">
+      <v-sheet height="600">
         <v-calendar
           ref="calendar"
           v-model="start"
@@ -244,36 +288,15 @@
           :short-months="shortMonths"
           :short-weekdays="shortWeekdays"
           :color="color"
-        >
-          <template v-slot:day="day">
-            <v-sheet
-              v-if="day.day % 3 === 0"
-              :color="color"
-              class="white--text pa-1"
-            >
-              day slot {{ day.date }}
-            </v-sheet>
-          </template>
-          <template v-slot:header="day">
-            <div
-              v-if="day.weekday % 2"
-              class="day-header"
-            >
-              day-header slot {{ day.date }}
-            </div>
-          </template>
-          <template v-slot:day-body="day">
-            <div
-              v-if="day.weekday % 3 === 2"
-              class="day-body"
-            >
-              day-body slot {{ day.date }}
-            </div>
-          </template>
-        </v-calendar>
+          :events="events"
+          :event-overlap-mode="mode"
+          :event-overlap-threshold="45"
+          :event-color="getEventColor"
+          @change="getEvents"
+        ></v-calendar>
       </v-sheet>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -283,7 +306,7 @@
     first: 0,
     minutes: 60,
     count: 24,
-    height: 40,
+    height: 48,
   }
 
   const stylings = {
@@ -321,6 +344,9 @@
       nowMenu: false,
       minWeeks: 1,
       now: null,
+      events: [],
+      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
+      names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
       type: 'month',
       typeOptions: [
         { text: 'Day', value: 'day' },
@@ -329,6 +355,11 @@
         { text: 'Month', value: 'month' },
         { text: 'Custom Daily', value: 'custom-daily' },
         { text: 'Custom Weekly', value: 'custom-weekly' },
+      ],
+      mode: 'stack',
+      modeOptions: [
+        { text: 'Stack', value: 'stack' },
+        { text: 'Column', value: 'column' },
       ],
       weekdays: weekdaysDefault,
       weekdaysOptions: [
@@ -340,7 +371,7 @@
       intervals: intervalsDefault,
       intervalsOptions: [
         { text: 'Default', value: intervalsDefault },
-        { text: 'Workday', value: { first: 16, minutes: 30, count: 20, height: 40 } },
+        { text: 'Workday', value: { first: 16, minutes: 30, count: 20, height: 48 } },
       ],
       maxDays: 7,
       maxDaysOptions: [
@@ -410,6 +441,35 @@
       },
       showIntervalLabel (interval) {
         return interval.minute === 0
+      },
+      getEvents ({ start, end }) {
+        const events = []
+
+        const min = new Date(`${start.date}T00:00:00`)
+        const max = new Date(`${end.date}T23:59:59`)
+        const days = (max.getTime() - min.getTime()) / 86400000
+        const eventCount = this.rnd(days, days + 20)
+
+        for (let i = 0; i < eventCount; i++) {
+          const allDay = this.rnd(0, 3) === 0
+          const firstTimestamp = this.rnd(min.getTime(), max.getTime())
+          const first = new Date(firstTimestamp - (firstTimestamp % 900000))
+          const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
+          const second = new Date(first.getTime() + secondTimestamp)
+
+          events.push({
+            name: this.names[this.rnd(0, this.names.length - 1)],
+            start: first,
+            end: second,
+            timed: !allDay,
+            color: this.colors[this.rnd(0, this.colors.length - 1)],
+          })
+        }
+
+        this.events = events
+      },
+      rnd (a, b) {
+        return Math.floor((b - a + 1) * Math.random()) + a
       },
     },
   }

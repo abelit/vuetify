@@ -1,6 +1,6 @@
 <template>
-  <v-layout justify-center>
-    <v-flex xs12 sm10 md8 lg6>
+  <v-row justify="center">
+    <v-col cols="12" sm="10" md="8" lg="6">
       <v-card ref="form">
         <v-card-text>
           <v-text-field
@@ -68,14 +68,15 @@
               v-if="formHasErrors"
               left
             >
-              <template v-slot:activator="{ on }">
+              <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   icon
                   class="my-0"
+                  v-bind="attrs"
                   @click="resetForm"
                   v-on="on"
                 >
-                  <v-icon>refresh</v-icon>
+                  <v-icon>mdi-refresh</v-icon>
                 </v-btn>
               </template>
               <span>Refresh form</span>
@@ -84,8 +85,8 @@
           <v-btn color="primary" text @click="submit">Submit</v-btn>
         </v-card-actions>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

@@ -1,10 +1,11 @@
 <template>
   <div class="text-center">
     <v-bottom-sheet inset>
-      <template v-slot:activator="{ on }">
+      <template v-slot:activator="{ on, attrs }">
         <v-btn
           color="red"
           dark
+          v-bind="attrs"
           v-on="on"
         >
           Open Player
@@ -28,13 +29,13 @@
 
             <v-list-item-icon>
               <v-btn icon>
-                <v-icon>fast_rewind</v-icon>
+                <v-icon>mdi-rewind</v-icon>
               </v-btn>
             </v-list-item-icon>
 
             <v-list-item-icon :class="{ 'mx-5': $vuetify.breakpoint.mdAndUp }">
               <v-btn icon>
-                <v-icon>pause</v-icon>
+                <v-icon>mdi-pause</v-icon>
               </v-btn>
             </v-list-item-icon>
 
@@ -43,7 +44,7 @@
               :class="{ 'mr-3': $vuetify.breakpoint.mdAndUp }"
             >
               <v-btn icon>
-                <v-icon>fast_forward</v-icon>
+                <v-icon>mdi-fast-forward</v-icon>
               </v-btn>
             </v-list-item-icon>
           </v-list-item>

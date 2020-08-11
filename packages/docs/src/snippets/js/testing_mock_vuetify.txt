@@ -14,20 +14,15 @@ import {
 } from '@vue/test-utils'
 
 const localVue = createLocalVue()
-localVue.use(Vuetify)
 
 describe('CustomAlert.vue', () => {
   let vuetify
 
   beforeEach(() => {
     vuetify = new Vuetify({
-      mocks: {
-        $vuetify: {
-          lang: {
-            t: (val: string) => val,
-          },
-        },
-      }
+      lang: {
+        t: (val: string) => val,
+      },
     })
   })
 

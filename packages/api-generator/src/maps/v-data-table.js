@@ -8,6 +8,8 @@ const TableHeader = {
   value: 'string',
   'align?': '\'start\' | \'center\' | \'end\'',
   'sortable?': 'boolean',
+  'filterable?': 'boolean',
+  'groupable?': 'boolean',
   'divider?': 'boolean',
   'class?': 'string | string[]',
   'width?': 'string | number',
@@ -15,8 +17,31 @@ const TableHeader = {
   'sort?': '(a: any, b: any) => number',
 }
 
+const dataString = `{
+  expand: (value: boolean) => void,
+  headers: TableHeader[],
+  isExpanded: boolean,
+  isMobile: boolean,
+  isSelected: boolean,
+  item: any,
+  select: (value: boolean) => void
+}`
 const DataTableEvents = [
-  { name: 'click:row', source: 'v-data-table', value: 'any' },
+  {
+    name: 'click:row',
+    source: 'v-data-table',
+    value: `any, ${dataString}`,
+  },
+  {
+    name: 'contextmenu:row',
+    source: 'v-data-table',
+    value: `MouseEvent, ${dataString}`,
+  },
+  {
+    name: 'dblclick:row',
+    source: 'v-data-table',
+    value: `MouseEvent, ${dataString}`,
+  },
 ].concat(DataIteratorEvents)
 
 const DataTableHeaderScopedProps = {
@@ -33,6 +58,17 @@ const DataTableHeaderScopedProps = {
     group: DataDefaultScopedSlotProps.group,
     'toggle-select-all': '(value: boolean) => void',
   },
+}
+
+const DataTableFooterScopedProps = {
+  props: {
+    options: DataOptions,
+    pagination: DataDefaultScopedSlotProps.pagination,
+    itemsPerPageText: 'string',
+  },
+  on: '{}',
+  headers: 'TableHeader[]',
+  widths: '[]',
 }
 
 const DataTableHeaderColumnScopedProps = {
@@ -65,20 +101,56 @@ const DataTableExpandedItemScopedProps = {
   headers: 'TableHeader[]',
 }
 
+const DataTableBodyScopedProps = {
+  ...DataDefaultScopedSlotProps,
+  headers: 'TableHeader[]',
+  isMobile: 'boolean',
+  isSelected: '(item: any) => boolean',
+  select: '(item: any, value: boolean) => void',
+  isExpanded: '(item: any) => boolean',
+  expand: '(item: any, value: boolean) => void',
+}
+
+const DataGroupScopedProps = {
+  group: 'string',
+  options: DataOptions,
+  items: 'any[]',
+  headers: 'TableHeader[]',
+}
+
+const DataGroupHeaderScopedProps = {
+  group: 'string',
+  groupBy: DataOptions.groupBy,
+  items: 'any[]',
+  headers: 'TableHeader[]',
+  isOpen: 'boolean',
+  toggle: '() => void',
+  remove: '() => void',
+}
+
+const DataGroupSummaryScopedProps = {
+  group: 'string',
+  groupBy: DataOptions.groupBy,
+  items: 'any[]',
+  headers: 'TableHeader[]',
+  isOpen: 'boolean',
+  toggle: '() => void',
+}
+
 const DataTableSlots = [
-  { name: 'body.append', props: DataDefaultScopedSlotProps },
-  { name: 'body.prepend', props: DataDefaultScopedSlotProps },
-  { name: 'body', props: DataDefaultScopedSlotProps },
-  { name: 'footer', props: DataDefaultScopedSlotProps },
+  { name: 'body.append', props: DataTableBodyScopedProps },
+  { name: 'body.prepend', props: DataTableBodyScopedProps },
+  { name: 'body', props: DataTableBodyScopedProps },
+  { name: 'footer', props: DataTableFooterScopedProps },
   { name: 'footer.page-text', props: DataFooterPageTextScopedProps },
   { name: 'header', props: DataTableHeaderScopedProps },
   { name: 'header.data-table-select', props: DataTableHeaderSelectScopedProps },
   { name: 'header.<name>', props: DataTableHeaderColumnScopedProps },
   { name: 'top', props: DataDefaultScopedSlotProps },
-  { name: 'progress', props: DataDefaultScopedSlotProps },
-  { name: 'group', props: DataDefaultScopedSlotProps },
-  { name: 'group.header', props: DataDefaultScopedSlotProps },
-  { name: 'group.summary', props: DataDefaultScopedSlotProps },
+  { name: 'progress' },
+  { name: 'group', props: DataGroupScopedProps },
+  { name: 'group.header', props: DataGroupHeaderScopedProps },
+  { name: 'group.summary', props: DataGroupSummaryScopedProps },
   { name: 'item', props: { ...DataTableItemScopedProps, index: 'number' } },
   { name: 'item.data-table-select', props: DataTableItemScopedProps },
   { name: 'item.data-table-expand', props: DataTableItemScopedProps },

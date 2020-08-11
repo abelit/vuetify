@@ -3,8 +3,8 @@
     <v-subheader>Min and max default slider</v-subheader>
 
     <v-card-text>
-      <v-layout>
-        <v-flex class="pr-4">
+      <v-row>
+        <v-col class="pr-4">
           <v-slider
             v-model="slider"
             class="align-center"
@@ -23,15 +23,15 @@
               ></v-text-field>
             </template>
           </v-slider>
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-card-text>
 
     <v-subheader>Min and max range slider</v-subheader>
 
     <v-card-text>
-      <v-layout>
-        <v-flex class="px-4">
+      <v-row>
+        <v-col class="px-4">
           <v-range-slider
             v-model="range"
             :max="max"
@@ -41,27 +41,29 @@
           >
             <template v-slot:prepend>
               <v-text-field
-                v-model="range[0]"
+                :value="range[0]"
                 class="mt-0 pt-0"
                 hide-details
                 single-line
                 type="number"
                 style="width: 60px"
+                @change="$set(range, 0, $event)"
               ></v-text-field>
             </template>
             <template v-slot:append>
               <v-text-field
-                v-model="range[1]"
+                :value="range[1]"
                 class="mt-0 pt-0"
                 hide-details
                 single-line
                 type="number"
                 style="width: 60px"
+                @change="$set(range, 1, $event)"
               ></v-text-field>
             </template>
           </v-range-slider>
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>

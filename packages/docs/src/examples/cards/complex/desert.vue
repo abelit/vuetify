@@ -1,13 +1,13 @@
 <template>
-  <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
+  <v-row>
+    <v-col cols="12" sm="6" offset-sm="3">
       <v-card>
         <v-img
           src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
           aspect-ratio="2.75"
         ></v-img>
 
-        <v-card-title primary-title>
+        <v-card-title>
           <div>
             <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
             <div> {{ card_text }} </div>
@@ -19,8 +19,8 @@
           <v-btn text color="orange">Explore</v-btn>
         </v-card-actions>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

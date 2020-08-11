@@ -3,44 +3,42 @@
     class="mx-auto overflow-hidden"
     style="max-width: 600px;"
   >
-    <v-layout>
-      <v-flex xs6 d-flex>
+    <v-row>
+      <v-col class="d-flex" cols="6">
         <v-img
           src="https://cdn.vuetifyjs.com/images/ratings/fortnite1.png"
         ></v-img>
-      </v-flex>
-      <v-flex xs6>
+      </v-col>
+      <v-col cols="6">
         <v-container
-          grid-list-md
-          pa-0
-          pl-2
+          class="pa-0 pl-2"
           style="margin: -4px 0"
         >
-          <v-layout wrap>
-            <v-flex xs7 d-flex>
+          <v-row>
+            <v-col class="d-flex" cols="7">
               <v-img
                 src="https://cdn.vuetifyjs.com/images/ratings/fortnite2.png"
               ></v-img>
-            </v-flex>
-            <v-flex xs5 d-flex>
+            </v-col>
+            <v-col class="d-flex" cols="5">
               <v-img
                 src="https://cdn.vuetifyjs.com/images/ratings/fortnite3.png"
               ></v-img>
-            </v-flex>
-            <v-flex xs5 d-flex>
+            </v-col>
+            <v-col class="d-flex" cols="5">
               <v-img
                 src="https://cdn.vuetifyjs.com/images/ratings/fortnite4.png"
               ></v-img>
-            </v-flex>
-            <v-flex xs7 d-flex>
+            </v-col>
+            <v-col class="d-flex" cols="7">
               <v-img
                 src="https://cdn.vuetifyjs.com/images/ratings/fortnite5.png"
               ></v-img>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
     <v-card-title class="align-start">
       <div>
         <span class="headline">FORTNITE</span>
@@ -71,13 +69,13 @@
           <v-list>
             <v-list-item @click="">
               <v-list-item-action>
-                <v-icon color="indigo">mdi-facebook-box</v-icon>
+                <v-icon color="indigo">mdi-facebook</v-icon>
               </v-list-item-action>
               <v-card-title>Facebook</v-card-title>
             </v-list-item>
             <v-list-item @click="">
               <v-list-item-action>
-                <v-icon color="cyan">mdi-twitter-box</v-icon>
+                <v-icon color="cyan">mdi-twitter</v-icon>
               </v-list-item-action>
               <v-card-title>Twitter</v-card-title>
             </v-list-item>

@@ -24,9 +24,9 @@
         </v-btn>
       </v-card-title>
 
-      <v-card-actions class="grey darken-3 justify-center">
+      <v-card-text class="py-2 white--text text-center">
         {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
-      </v-card-actions>
+      </v-card-text>
     </v-card>
   </v-footer>
 </template>
@@ -35,18 +35,11 @@
   export default {
     data: () => ({
       icons: [
-        'fab fa-facebook',
-        'fab fa-twitter',
-        'fab fa-google-plus',
-        'fab fa-linkedin',
-        'fab fa-instagram',
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram',
       ],
     }),
   }
 </script>
-
-<codepen-resources lang="json">
-  {
-  "js": ["https://use.fontawesome.com/releases/v5.0.6/js/all.js"]
-  }
-</codepen-resources>

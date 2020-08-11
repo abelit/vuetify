@@ -2,141 +2,74 @@
   <v-snackbar
     v-model="snack"
     :color="snackbar.color"
-    :style="{
-      marginBottom: $vuetify.breakpoint.smOnly ? '40px' : null
-    }"
-    :timeout="snackbar.timeout"
-    bottom
-    right
+    :timeout="-1"
+    vertical
   >
-    <v-layout
-      align-center
-    >
-      <v-icon
-        v-if="computedIcon"
-        dark
-        class="mr-4"
-      >
-        {{ computedIcon }}
-      </v-icon>
-      <doc-markdown
-        :code="snackbar.msg"
+    <div class="d-flex">
+      <span
+        v-if="snackbar.emoji"
+        class="mr-2"
+        v-text="snackbar.emoji"
+      />
+
+      <base-markdown
+        :code="snackbar.text"
         class="snack-markdown"
       />
-      <v-spacer />
+    </div>
+
+    <template v-slot:action="{ attrs }">
       <v-btn
-        :color="computedColor"
-        :ripple="false"
-        v-bind="bind"
-        :text="snackbar.color !== 'store'"
-        dark
-        depressed
-        @click="onClick"
+        class="mr-2"
+        color="pink lighten-3"
+        text
+        v-bind="{ ...bind, ...attrs }"
+        @click="snack = false"
       >
-        {{ snackbar.text }}
+        {{ snackbar.action_text }}
       </v-btn>
+
       <v-btn
-        v-if="snackbar.close"
-        :ripple="false"
         :aria-label="$t('Vuetify.Snackbar.close')"
+        color="white"
         icon
-        class="ml-4"
-        @click="markViewed"
+        @click="snack = false"
       >
-        <v-icon>clear</v-icon>
+        <v-icon small>$vuetify.close</v-icon>
       </v-btn>
-    </v-layout>
+    </template>
   </v-snackbar>
 </template>
 
 <script>
   import {
-    mapMutations,
-    mapState,
-  } from 'vuex'
+    get,
+    sync,
+  } from 'vuex-pathify'
 
   export default {
+    name: 'CoreSnackbar',
+
     computed: {
-      ...mapState('snackbar', ['snackbar', 'value']),
+      snack: sync('snackbar/value'),
+      snackbar: get('snackbar/snackbar'),
       bind () {
-        if (this.snackbar.to) return { to: this.snackbar.to }
-        if (this.snackbar.href) {
-          return {
-            href: this.snackbar.href,
-            target: '_blank',
-            rel: 'noopener',
-          }
-        }
+        const { action } = this.snackbar
+        const isExternal = action.indexOf('http') > -1
 
-        return {}
-      },
-      computedColor () {
-        if (this.snackbar.color !== 'store') {
-          return !this.computedIcon ? 'primary lighten-3' : null
+        return !isExternal ? { to: `/${this.$route.params.lang}${action}` } : {
+          href: action,
+          target: '_blank',
         }
-
-        return 'green'
-      },
-      computedIcon () {
-        switch (this.snackbar.color) {
-          case 'store': return 'mdi-cart'
-          case 'success': return 'check'
-          case 'info': return 'info'
-          case 'warning': return 'warning'
-          case 'error': return 'error'
-          default: return false
-        }
-      },
-      snack: {
-        get () {
-          return this.value
-        },
-        set (val) {
-          this.setValue(val)
-        },
       },
     },
 
     watch: {
-      $route () {
-        this.snack = false
-      },
-      snackbar () {
-        if (localStorage.getItem(this.snackbar.id)) return
-
-        this.snack = true
-      },
-    },
-
-    async created () {
-      // if (this.$ssrContext) return
-
-      const notify = require('@/data/api/notify.json')
-
-      // const notify = await fetch('https://cdn.vuetifyjs.com/notify.json', {
-      //   headers: {
-      //     'Access-Control-Allow-Origin': '*'
-      //   }
-      // }).then(res => res.json())
-
-      if (notify.href) this.setSnackbar(notify)
-    },
-
-    methods: {
-      ...mapMutations('snackbar', ['setSnackbar', 'setValue']),
-      markViewed () {
-        if (this.snackbar.id) {
-          localStorage.setItem(this.snackbar.id, true)
-        }
-        this.snack = false
-      },
-      onClick () {
-        this.$ga.event('snackbar', 'click', this.snackbar.id)
-
-        this.markViewed()
-
-        this.snackbar.handler &&
-          this.snackbar.handler()
+      snackbar: {
+        deep: true,
+        handler () {
+          this.snack = true
+        },
       },
     },
   }

@@ -3,10 +3,7 @@
     class="elevation-16 mx-auto"
     width="300"
   >
-    <v-card-title
-      class="headline"
-      primary-title
-    >
+    <v-card-title class="headline">
       Rate Our Framework
     </v-card-title>
     <v-card-text>
@@ -17,7 +14,7 @@
           v-model="rating"
           color="yellow darken-3"
           background-color="grey darken-1"
-          empty-icon="$vuetify.icons.ratingFull"
+          empty-icon="$ratingFull"
           half-increments
           hover
         ></v-rating>

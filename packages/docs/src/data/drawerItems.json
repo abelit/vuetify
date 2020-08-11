@@ -1,20 +1,30 @@
 [
   {
-    "group": "getting-started",
-    "text": "gettingStarted",
-    "icon": "mdi-speedometer",
+    "group": "introduction",
+    "text": "introduction",
+    "icon": "mdi-book-open-page-variant",
     "children": [
-      { "text": "quickStart", "to": "quick-start" },
-      { "text": "preMadeLayouts", "to": "pre-made-layouts" },
-      { "new": true, "text": "testing", "to": "unit-testing" },
       { "text": "whyVuetify", "to": "why-vuetify" },
       { "text": "faq", "to": "frequently-asked-questions" },
       { "text": "meetTheTeam", "to": "meet-the-team" },
       { "text": "sponsorsAndBackers", "to": "sponsors-and-backers" },
-      { "new": true, "text": "lts", "to": "long-term-support" },
-      { "text": "contributing", "to": "contributing" },
-      { "updated": true, "text": "roadmap", "to": "roadmap" },
-      { "help": true, "text": "consulting", "to": "consulting-and-support" }
+      { "text": "roadmap", "to": "roadmap" },
+      { "text": "lts", "to": "long-term-support" },
+      { "text": "security", "to": "security-disclosure" }
+    ]
+  },
+  {
+    "group": "getting-started",
+    "text": "gettingStarted",
+    "icon": "mdi-speedometer",
+    "children": [
+      { "text": "guide", "to": "guide" },
+      { "text": "quickStart", "to": "quick-start" },
+      { "text": "preMadeLayouts", "to": "pre-made-layouts" },
+      { "text": "browserSupport", "to": "browser-support" },
+      { "text": "testing", "to": "unit-testing" },
+      { "text": "releasesAndMigrations", "to": "releases-and-migrations" },
+      { "text": "contributing", "to": "contributing" }
     ]
   },
   {
@@ -22,14 +32,35 @@
     "text": "customization",
     "icon": "mdi-cogs",
     "children": [
-      { "new": true, "text": "accessibility", "to": "accessibility" },
+      { "text": "accessibility", "to": "accessibility" },
       { "text": "aLaCarte", "to": "a-la-carte" },
-      { "text": "breakpoints", "to": "breakpoints" },
+      { "updated": true, "text": "breakpoints", "to": "breakpoints" },
+      { "new": true, "text": "globalConfig", "to": "global-config" },
       { "text": "icons", "to": "icons" },
-      { "text": "i18n", "to": "internationalization" },
-      { "new": true, "text": "rtl", "to": "rtl" },
-      { "new": true, "text": "sass-variables", "to": "sass-variables" },
-      { "text": "theme", "to": "theme" }
+      { "updated": true, "text": "i18n", "to": "internationalization" },
+      { "text": "rtl", "to": "rtl" },
+      { "text": "presets", "to": "presets" },
+      { "text": "sass-variables", "to": "sass-variables" },
+      { "updated": true, "text": "theme", "to": "theme" }
+    ]
+  },
+  {
+    "group": "styles",
+    "text": "styles",
+    "icon": "mdi-palette",
+    "children": [
+      { "text": "cssReset", "to": "css-reset" },
+      { "new": true, "text": "borderRadius", "to": "border-radius" },
+      { "text": "colors", "to": "colors" },
+      { "text": "content", "to": "content" },
+      { "text": "display", "to": "display" },
+      { "text": "elevation", "to": "elevation" },
+      { "text": "flex", "to": "flex" },
+      { "text": "float", "to": "float" },
+      { "updated": true, "text": "spacing", "to": "spacing" },
+      { "updated": true, "text": "text", "to": "text-and-typography" },
+      { "text": "transitions", "to": "transitions" },
+      { "text": "scroll", "to": "scroll" }
     ]
   },
   {
@@ -38,17 +69,17 @@
     "icon": "mdi-view-dashboard",
     "children": [
       { "text": "apiExplorer", "subtext": "browseAllComponents", "to": "api-explorer" },
-      { "text": "alerts", "to": "alerts" },
+      { "updated": true, "text": "alerts", "to": "alerts" },
       { "text": "application", "to": "application" },
       { "text": "aspectRatios", "to": "aspect-ratios" },
-      { "text": "avatars", "to": "avatars" },
+      { "updated": true, "text": "avatars", "to": "avatars" },
       { "text": "badges", "to": "badges" },
-      { "new": true, "text": "banners", "to": "banners" },
+      { "text": "banners", "to": "banners" },
       {
         "group": "components",
         "text": "bars",
         "children": [
-          { "new": true, "text": "appBars", "to": "app-bars" },
+          { "text": "appBars", "to": "app-bars" },
           { "text": "toolbars", "to": "toolbars" },
           { "text": "systemBars", "to": "system-bars" }
         ]
@@ -58,7 +89,7 @@
       { "text": "breadcrumbs", "to": "breadcrumbs" },
       { "text": "buttons", "to": "buttons" },
       { "text": "fabs", "to": "floating-action-buttons" },
-      { "text": "calendars", "to": "calendars" },
+      { "new": true, "text": "calendars", "to": "calendars" },
       { "text": "cards", "to": "cards" },
       { "text": "carousels", "to": "carousels" },
       { "text": "chips", "to": "chips" },
@@ -66,31 +97,14 @@
       { "text": "dividers", "to": "dividers" },
       { "text": "expansionPanels", "to": "expansion-panels" },
       { "text": "footer", "to": "footer" },
-      { "text": "grid", "to": "grids" },
-      { "text": "gridLists", "to": "grid-lists" },
       {
         "group": "components",
-        "text": "groups",
-        "children": [
-          { "text": "buttonGroups", "to": "button-groups" },
-          { "new": true, "text": "chipGroups", "to": "chip-groups" },
-          { "text": "itemGroups", "to": "item-groups" },
-          { "new": true, "text": "listItemGroups", "to": "list-item-groups" },
-          { "new": true, "text": "slideGroups", "to": "slide-groups" },
-          { "text": "windows", "to": "windows" }
-        ]
-      },
-      { "text": "hover", "to": "hover" },
-      { "text": "icons", "to": "icons" },
-      { "text": "images", "to": "images" },
-      {
-        "group": "components",
-        "text": "inputsAndControls",
+        "text": "formInputsAndControls",
         "children": [
           { "text": "autocompletes", "to": "autocompletes" },
           { "text": "combobox", "to": "combobox" },
-          { "new": true, "text": "fileInputs", "to": "file-inputs" },
-          { "text": "forms", "to": "forms" },
+          { "updated": true, "text": "fileInputs", "to": "file-inputs" },
+          { "updated": true, "text": "forms", "to": "forms" },
           { "text": "inputs", "to": "inputs" },
           { "text": "overflowButtons", "to": "overflow-btns" },
           { "text": "selects", "to": "selects" },
@@ -100,18 +114,35 @@
           { "text": "textFields", "to": "text-fields" }
         ]
       },
+      { "text": "grid", "to": "grids" },
+      {
+        "group": "components",
+        "text": "groups",
+        "children": [
+          { "text": "buttonGroups", "to": "button-groups" },
+          { "text": "chipGroups", "to": "chip-groups" },
+          { "text": "itemGroups", "to": "item-groups" },
+          { "text": "listItemGroups", "to": "list-item-groups" },
+          { "text": "slideGroups", "to": "slide-groups" },
+          { "text": "windows", "to": "windows" }
+        ]
+      },
+      { "text": "hover", "to": "hover" },
+      { "text": "icons", "to": "icons" },
+      { "updated": true, "text": "images", "to": "images" },
+      { "updated": true, "text": "lazy", "to": "lazy" },
       { "text": "lists", "to": "lists" },
-      { "text": "menus", "to": "menus" },
+      { "updated": true, "text": "menus", "to": "menus" },
       { "text": "navigationDrawers", "to": "navigation-drawers" },
-      { "new": true, "text": "overlays", "to": "overlays" },
-      { "text": "paginations", "to": "paginations" },
-      { "text": "parallax", "to": "parallax" },
+      { "text": "overlays", "to": "overlays" },
+      { "updated": true, "text": "paginations", "to": "paginations" },
+      { "updated": true, "text": "parallax", "to": "parallax" },
       {
         "group": "components",
         "text": "pickers",
         "children": [
-          { "new": true, "text": "colorPickers", "to": "color-pickers" },
-          { "text": "datePickers", "to": "date-pickers" },
+          { "text": "colorPickers", "to": "color-pickers" },
+          { "updated": true, "text": "datePickers", "to": "date-pickers" },
           { "text": "timePickers", "to": "time-pickers" }
         ]
       },
@@ -120,12 +151,13 @@
         "text": "progress",
         "children": [
           { "text": "progressCircular", "to": "progress-circular" },
-          { "text": "progressLinear", "to": "progress-linear" }
+          { "updated": true, "text": "progressLinear", "to": "progress-linear" }
         ]
       },
       { "text": "ratings", "to": "ratings" },
-      { "text": "sheets", "to": "sheets" },
-      { "text": "snackbars", "to": "snackbars" },
+      { "updated": true, "text": "sheets", "to": "sheets" },
+      { "text": "skeletonLoaders", "to": "skeleton-loaders" },
+      { "updated": true, "text": "snackbars", "to": "snackbars" },
       { "text": "sparklines", "to": "sparklines" },
       { "text": "steppers", "to": "steppers" },
       { "text": "subheaders", "to": "subheaders" },
@@ -134,30 +166,15 @@
         "text": "tables",
         "children": [
           { "updated": true, "text": "dataIterators", "to": "data-iterators" },
-          { "new": true, "text": "simpleTables", "to": "simple-tables" },
+          { "updated": true, "text": "simpleTables", "to": "simple-tables" },
           { "updated": true, "text": "dataTables", "to": "data-tables" }
         ]
       },
       { "text": "tabs", "to": "tabs" },
       { "text": "timelines", "to": "timelines" },
       { "text": "tooltips", "to": "tooltips" },
-      { "text": "treeview", "to": "treeview" }
-    ]
-  },
-  {
-    "group": "styles",
-    "text": "styles",
-    "icon": "mdi-palette",
-    "children": [
-      { "text": "colors", "to": "colors" },
-      { "text": "content", "to": "content" },
-      { "text": "display", "to": "display" },
-      { "text": "elevation", "to": "elevation" },
-      { "text": "spacing", "to": "spacing" },
-      { "text": "textAlignment", "to": "alignment" },
-      { "text": "typography", "to": "typography" },
-      { "text": "transitions", "to": "transitions" },
-      { "text": "scroll", "to": "scroll" }
+      { "text": "treeview", "to": "treeview" },
+      { "new": true, "text": "virtualScroll", "to": "virtual-scrollers" }
     ]
   },
   {
@@ -165,15 +182,34 @@
     "text": "directives",
     "icon": "mdi-function",
     "children": [
+      { "new": true, "text": "clickOutside", "to": "click-outside" },
+      { "text": "intersect", "to": "intersect" },
+      { "text": "mutate", "to": "mutate" },
       { "text": "resizing", "to": "resizing" },
-      { "text": "ripples", "to": "ripples" },
-      { "text": "scrolling", "to": "scrolling" },
+      { "updated": true, "text": "ripples", "to": "ripples" },
+      { "updated": true, "text": "scrolling", "to": "scrolling" },
       { "text": "touchSupport", "to": "touch-support" }
+    ]
+  },
+  {
+    "group": "professional-support",
+    "text": "support",
+    "icon": "mdi-atom-variant",
+    "children": [
+      { "updated": true, "text": "consulting", "to": "consulting" },
+      { "text": "business", "to": "business" },
+      { "text": "enterprise", "to": "enterprise" }
     ]
   },
   {
     "text": "premiumThemes",
     "icon": "mdi-vuetify",
     "to": "themes/premium"
+  },
+  {
+    "new": true,
+    "text": "jobs",
+    "icon": "mdi-briefcase-search",
+    "to": "jobs/for-vue"
   }
 ]

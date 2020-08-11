@@ -1,21 +1,41 @@
-import { set, toggle } from '@/util/vuex'
+// Utilities
+import { make } from 'vuex-pathify'
+import bucket from '@/plugins/cosmicjs'
+
+const state = {
+  currentVersion: null,
+  drawer: null,
+  isLoading: false,
+  releases: [],
+  supporters: [],
+}
+
+const mutations = make.mutations(state)
+
+const actions = {
+  fetchSponsors: async ({ commit, state }) => {
+    if (state.supporters.length > 0) return
+
+    const { objects: items } = await bucket.getObjects({
+      type: 'sponsors',
+      props: 'title,metadata',
+      sort: 'created_at',
+      'metadata[status]': true,
+    })
+
+    commit('SET_SUPPORTERS', items)
+  },
+  init: ({ dispatch }) => {
+    dispatch('fetchSponsors')
+  },
+}
+
+const getters = {}
 
 export default {
   namespaced: true,
-
-  mutations: {
-    setDrawer: set('drawer'),
-    setIsLoading: set('isLoading'),
-    setReleases: set('releases'),
-    setSupporters: set('supporters'),
-    toggleDrawer: toggle('drawer'),
-  },
-
-  state: {
-    drawer: null,
-    currentVersion: null,
-    isLoading: false,
-    releases: [],
-    supporters: {},
-  },
+  state,
+  mutations,
+  actions,
+  getters,
 }

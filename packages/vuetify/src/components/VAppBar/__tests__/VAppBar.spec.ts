@@ -93,6 +93,32 @@ describe('AppBar.ts', () => {
     expect(wrapper.vm.isActive).toBe(true)
   })
 
+  it('should hide when inverted scroll is enabled and page is scrolled to the top', async () => {
+    const wrapper = mountFunction({
+      attachToDocument: true,
+      propsData: { hideOnScroll: true, invertedScroll: true, scrollThreshold: 300 },
+    })
+
+    expect(wrapper.vm.currentScroll).toBe(0)
+    expect(wrapper.vm.isActive).toBe(false)
+
+    await scrollWindow(475)
+
+    expect(wrapper.vm.isActive).toBe(true)
+
+    await scrollWindow(0)
+    wrapper.setProps({ invertedScroll: false })
+    await wrapper.vm.$nextTick()
+    await scrollWindow(475)
+    wrapper.setProps({ invertedScroll: true })
+
+    expect(wrapper.vm.isActive).toBe(true)
+
+    await scrollWindow(0)
+
+    expect(wrapper.vm.isActive).toBe(false)
+  })
+
   it('should set active based on value', async () => {
     const wrapper = mountFunction({
       propsData: {
@@ -247,5 +273,67 @@ describe('AppBar.ts', () => {
 
     expect(wrapper.vm.computedTransform).toBe(0)
     expect(wrapper.vm.hideShadow).toBe(false)
+  })
+
+  it('should show shadow when hide-on-scroll and elevate-on-scroll and extended are all true', async () => {
+    const wrapper = mountFunction({
+      propsData: {
+        hideOnScroll: true,
+        elevateOnScroll: true,
+        extended: true,
+      },
+    })
+
+    expect(wrapper.vm.computedTransform).toBe(0)
+    expect(wrapper.vm.hideShadow).toBe(true)
+
+    await scrollWindow(1000)
+
+    expect(wrapper.vm.computedTransform).toBe(-64)
+    expect(wrapper.vm.hideShadow).toBe(false)
+
+    await scrollWindow(600)
+
+    expect(wrapper.vm.computedTransform).toBe(0)
+    expect(wrapper.vm.hideShadow).toBe(false)
+
+    await scrollWindow(0)
+
+    expect(wrapper.vm.computedTransform).toBe(0)
+    expect(wrapper.vm.hideShadow).toBe(true)
+  })
+
+  // https://github.com/vuetifyjs/vuetify/issues/9993
+  it('should be active when hide-on-scroll and within threshold', async () => {
+    const wrapper = mountFunction({
+      propsData: {
+        hideOnScroll: true,
+        scrollThreshold: 100,
+      },
+    })
+
+    wrapper.setProps({ value: false })
+    await scrollWindow(-100)
+    expect(wrapper.vm.isActive).toBe(false)
+
+    await scrollWindow(1)
+    expect(wrapper.vm.isActive).toBe(true)
+  })
+
+  // https://github.com/vuetifyjs/vuetify/issues/8583
+  it('when scroll position is 0, v-model should be able to be control visibility regardless of other props', () => {
+    const wrapper = mountFunction({
+      propsData: {
+        elevateOnScroll: true,
+      },
+    })
+
+    expect(wrapper.vm.isActive).toBe(true)
+    expect(wrapper.vm.computedTransform).toBe(0)
+
+    wrapper.setProps({ value: false })
+
+    expect(wrapper.vm.isActive).toBe(false)
+    expect(wrapper.vm.computedTransform).not.toBe(0)
   })
 })

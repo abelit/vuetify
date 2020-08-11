@@ -6,14 +6,14 @@
     "fallback": true
   },
   {
-    "name": "Español",
-    "locale": "es-MX",
-    "country": "mx"
+    "name": "Deutsch",
+    "locale": "de-DE",
+    "country": "de"
   },
   {
-    "name": "Português",
-    "locale": "pt-BR",
-    "country": "br"
+    "name": "Français",
+    "locale": "fr-FR",
+    "country": "fr"
   },
   {
     "name": "Русский",
@@ -40,12 +40,7 @@
     "country": "jp"
   },
   {
-    "name": "Tiếng Việt",
-    "locale": "vi-VN",
-    "country": "vn"
-  },
-  {
-    "name": "Translate!",
+    "name": "Help translate",
     "locale": "eo-UY",
     "country": "uy"
   }

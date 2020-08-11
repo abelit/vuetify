@@ -1,8 +1,7 @@
 <template>
   <div>
-    <v-layout
-      justify-center
-      wrap
+    <v-row
+      justify="center"
     >
       <v-btn
         color="primary"
@@ -32,9 +31,10 @@
         bottom
         offset-y
       >
-        <template v-slot:activator="{ on }">
+        <template v-slot:activator="{ on, attrs }">
           <v-btn
             class="ma-2"
+            v-bind="attrs"
             v-on="on"
           >A Menu</v-btn>
         </template>
@@ -66,7 +66,7 @@
               dark
               @click="dialog = false"
             >
-              <v-icon>close</v-icon>
+              <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title>Settings</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -84,13 +84,14 @@
               right
               offset-y
             >
-              <template v-slot:activator="{ on }">
+              <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   dark
                   icon
+                  v-bind="attrs"
                   v-on="on"
                 >
-                  <v-icon>more_vert</v-icon>
+                  <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
               </template>
               <v-list>
@@ -114,9 +115,10 @@
               Open Dialog 2
             </v-btn>
             <v-tooltip right>
-              <template v-slot:activator="{ on }">
+              <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   class="ma-2"
+                  v-bind="attrs"
                   v-on="on"
                 >Tool Tip Activator</v-btn>
               </template>
@@ -225,12 +227,13 @@
               bottom
               left
             >
-              <template v-slot:activator="{ on }">
+              <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   icon
+                  v-bind="attrs"
                   v-on="on"
                 >
-                  <v-icon>more_vert</v-icon>
+                  <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
               </template>
               <v-list>
@@ -255,7 +258,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </v-layout>
+    </v-row>
   </div>
 </template>
 

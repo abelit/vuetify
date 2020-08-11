@@ -19,6 +19,7 @@ const DataIteratorEvents = DataEvents.concat([
   { name: 'update:expanded', source: 'v-data-iterator', value: 'any[]' },
   { name: 'item-selected', source: 'v-data-iterator', value: '{ item: any, value: boolean }' },
   { name: 'item-expanded', source: 'v-data-iterator', value: '{ item: any, value: boolean }' },
+  { name: 'toggle-select-all', source: 'v-data-iterator', value: '{ items: any[], value: boolean }' },
 ])
 
 const DataIteratorSlots = [
@@ -28,11 +29,12 @@ const DataIteratorSlots = [
 ]
 
 const DataIteratorItemScopedProps = {
-  item: 'any',
-  select: '(v: boolean) => void',
-  isSelected: 'boolean',
   expand: '(v: boolean) => void',
+  item: 'any',
   isExpanded: 'boolean',
+  isMobile: 'boolean',
+  isSelected: 'boolean',
+  select: '(v: boolean) => void',
 }
 
 const DataIteratorScopedSlots = [

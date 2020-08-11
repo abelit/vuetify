@@ -24,24 +24,25 @@
       <v-spacer></v-spacer>
 
       <v-btn icon>
-        <v-icon>search</v-icon>
+        <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
       <v-btn icon>
-        <v-icon>favorite</v-icon>
+        <v-icon>mdi-heart</v-icon>
       </v-btn>
 
       <v-menu
         bottom
         left
       >
-        <template v-slot:activator="{ on }">
+        <template v-slot:activator="{ on, attrs }">
           <v-btn
             icon
             color="yellow"
+            v-bind="attrs"
             v-on="on"
           >
-            <v-icon>more_vert</v-icon>
+            <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
 
@@ -56,10 +57,7 @@
       </v-menu>
 
       <template v-slot:extension>
-        <v-tabs
-          align-with-title
-          background-color="transparent"
-        >
+        <v-tabs align-with-title>
           <v-tab>Tab 1</v-tab>
           <v-tab>Tab 2</v-tab>
           <v-tab>Tab 3</v-tab>
